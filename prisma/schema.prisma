@@ -1,0 +1,66 @@
+generator client {
+    provider     = "prisma-client"
+    output       = "../src/generated/prisma"
+    moduleFormat = "cjs"
+}
+
+datasource db {
+    provider = "postgresql"
+}
+
+enum DebtStatus {
+    PENDING
+    PAID
+}
+
+model User {
+    id       String @id @default(uuid())
+    email    String @unique
+    password String
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    userDebts DebtParticipant[]
+    debts Debt[]
+
+    @@map("users")
+}
+
+model Debt {
+    id          String  @id @default(uuid())
+    description String
+    totalAmount Decimal @db.Decimal(12, 2)
+
+    createdById String
+    createdBy   User   @relation(fields: [createdById], references: [id])
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    participants DebtParticipant[]
+
+    @@map("debts")
+}
+
+model DebtParticipant {
+    id String @id @default(uuid())
+
+    userId String
+    user   User   @relation(fields: [userId], references: [id])
+
+    debtId String
+    debt   Debt   @relation(fields: [debtId], references: [id])
+
+    amount Decimal    @db.Decimal(12, 2)
+    status DebtStatus @default(PENDING)
+    paidAt DateTime?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@unique([userId, debtId])
+    @@index([userId])
+    @@index([debtId])
+    @@map("debt_participants")
+}
