@@ -14,15 +14,19 @@ enum DebtStatus {
 }
 
 model User {
-    id       String @id @default(uuid())
-    email    String @unique
-    password String
-
+    id        String   @id @default(uuid())
+    email     String   @unique
+    password  String
+    nickname  String   @unique
+    name      String
+    lastName  String
+    phone     String
+    isActive  Boolean  @default(true)
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    userDebts DebtParticipant[]
-    debts Debt[]
+    debtsCreated     Debt[]            @relation("DebtsCreated")
+    debtParticipants DebtParticipant[]
 
     @@map("users")
 }
@@ -33,12 +37,14 @@ model Debt {
     totalAmount Decimal @db.Decimal(12, 2)
 
     createdById String
-    createdBy   User   @relation(fields: [createdById], references: [id])
+    createdBy   User   @relation("DebtsCreated", fields: [createdById], references: [id])
+
+    status DebtStatus @default(PENDING)
+
+    participants DebtParticipant[]
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
-
-    participants DebtParticipant[]
 
     @@map("debts")
 }

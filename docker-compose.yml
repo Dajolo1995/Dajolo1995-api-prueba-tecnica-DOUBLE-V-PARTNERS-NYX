@@ -20,7 +20,7 @@ services:
       - '3000:3000'
     environment:
       # lo dejamos listo para después (Prisma)
-      DATABASE_URL: 'postgresql://postgres:postgres@host.docker.internal:5432/postgres?schema=test'
+      DATABASE_URL: 'postgresql://postgres:postgres@host.docker.internal:5432/postgres?schema=public'
     volumes:
       - .:/app
       - /app/node_modules
