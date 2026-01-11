@@ -689,6 +689,7 @@ export const DebtScalarFieldEnum = {
   description: 'description',
   totalAmount: 'totalAmount',
   createdById: 'createdById',
+  status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

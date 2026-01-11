@@ -2,6 +2,22 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input CreateDebtInput {
+  createdById: ID!
+  description: String!
+  totalAmount: Float!
+}
+
+type Mutation {
+  createDebt(input: CreateDebtInput!): String!
+  deleteDebt(debtId: String!): Boolean!
+  markDebtAsPaid(debtId: String!): String!
+  updateDebt(debtId: String!, description: String, totalAmount: Float): String!
+}
+
 type Query {
+  debtSummaryByUser(userId: String!): String!
+  getDebtById(debtId: String!): String!
   health: String!
+  listDebtsByUser(userId: String!): [String!]!
 }

@@ -230,8 +230,8 @@ export type UserWhereInput = {
   isActive?: Prisma.BoolFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  userDebts?: Prisma.DebtParticipantListRelationFilter
-  debts?: Prisma.DebtListRelationFilter
+  debtsCreated?: Prisma.DebtListRelationFilter
+  debtParticipants?: Prisma.DebtParticipantListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -246,8 +246,8 @@ export type UserOrderByWithRelationInput = {
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  userDebts?: Prisma.DebtParticipantOrderByRelationAggregateInput
-  debts?: Prisma.DebtOrderByRelationAggregateInput
+  debtsCreated?: Prisma.DebtOrderByRelationAggregateInput
+  debtParticipants?: Prisma.DebtParticipantOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -265,8 +265,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   isActive?: Prisma.BoolFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  userDebts?: Prisma.DebtParticipantListRelationFilter
-  debts?: Prisma.DebtListRelationFilter
+  debtsCreated?: Prisma.DebtListRelationFilter
+  debtParticipants?: Prisma.DebtParticipantListRelationFilter
 }, "id" | "email" | "nickname">
 
 export type UserOrderByWithAggregationInput = {
@@ -315,8 +315,8 @@ export type UserCreateInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  userDebts?: Prisma.DebtParticipantCreateNestedManyWithoutUserInput
-  debts?: Prisma.DebtCreateNestedManyWithoutCreatedByInput
+  debtsCreated?: Prisma.DebtCreateNestedManyWithoutCreatedByInput
+  debtParticipants?: Prisma.DebtParticipantCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -331,8 +331,8 @@ export type UserUncheckedCreateInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  userDebts?: Prisma.DebtParticipantUncheckedCreateNestedManyWithoutUserInput
-  debts?: Prisma.DebtUncheckedCreateNestedManyWithoutCreatedByInput
+  debtsCreated?: Prisma.DebtUncheckedCreateNestedManyWithoutCreatedByInput
+  debtParticipants?: Prisma.DebtParticipantUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -347,8 +347,8 @@ export type UserUpdateInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  userDebts?: Prisma.DebtParticipantUpdateManyWithoutUserNestedInput
-  debts?: Prisma.DebtUpdateManyWithoutCreatedByNestedInput
+  debtsCreated?: Prisma.DebtUpdateManyWithoutCreatedByNestedInput
+  debtParticipants?: Prisma.DebtParticipantUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -363,8 +363,8 @@ export type UserUncheckedUpdateInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  userDebts?: Prisma.DebtParticipantUncheckedUpdateManyWithoutUserNestedInput
-  debts?: Prisma.DebtUncheckedUpdateManyWithoutCreatedByNestedInput
+  debtsCreated?: Prisma.DebtUncheckedUpdateManyWithoutCreatedByNestedInput
+  debtParticipants?: Prisma.DebtParticipantUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -472,35 +472,35 @@ export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
 
-export type UserCreateNestedOneWithoutDebtsInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutDebtsInput, Prisma.UserUncheckedCreateWithoutDebtsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDebtsInput
+export type UserCreateNestedOneWithoutDebtsCreatedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDebtsCreatedInput, Prisma.UserUncheckedCreateWithoutDebtsCreatedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDebtsCreatedInput
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserUpdateOneRequiredWithoutDebtsNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutDebtsInput, Prisma.UserUncheckedCreateWithoutDebtsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDebtsInput
-  upsert?: Prisma.UserUpsertWithoutDebtsInput
+export type UserUpdateOneRequiredWithoutDebtsCreatedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDebtsCreatedInput, Prisma.UserUncheckedCreateWithoutDebtsCreatedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDebtsCreatedInput
+  upsert?: Prisma.UserUpsertWithoutDebtsCreatedInput
   connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDebtsInput, Prisma.UserUpdateWithoutDebtsInput>, Prisma.UserUncheckedUpdateWithoutDebtsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDebtsCreatedInput, Prisma.UserUpdateWithoutDebtsCreatedInput>, Prisma.UserUncheckedUpdateWithoutDebtsCreatedInput>
 }
 
-export type UserCreateNestedOneWithoutUserDebtsInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutUserDebtsInput, Prisma.UserUncheckedCreateWithoutUserDebtsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutUserDebtsInput
+export type UserCreateNestedOneWithoutDebtParticipantsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDebtParticipantsInput, Prisma.UserUncheckedCreateWithoutDebtParticipantsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDebtParticipantsInput
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserUpdateOneRequiredWithoutUserDebtsNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutUserDebtsInput, Prisma.UserUncheckedCreateWithoutUserDebtsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutUserDebtsInput
-  upsert?: Prisma.UserUpsertWithoutUserDebtsInput
+export type UserUpdateOneRequiredWithoutDebtParticipantsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDebtParticipantsInput, Prisma.UserUncheckedCreateWithoutDebtParticipantsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDebtParticipantsInput
+  upsert?: Prisma.UserUpsertWithoutDebtParticipantsInput
   connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutUserDebtsInput, Prisma.UserUpdateWithoutUserDebtsInput>, Prisma.UserUncheckedUpdateWithoutUserDebtsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDebtParticipantsInput, Prisma.UserUpdateWithoutDebtParticipantsInput>, Prisma.UserUncheckedUpdateWithoutDebtParticipantsInput>
 }
 
-export type UserCreateWithoutDebtsInput = {
+export type UserCreateWithoutDebtsCreatedInput = {
   id?: string
   email: string
   password: string
@@ -512,10 +512,10 @@ export type UserCreateWithoutDebtsInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  userDebts?: Prisma.DebtParticipantCreateNestedManyWithoutUserInput
+  debtParticipants?: Prisma.DebtParticipantCreateNestedManyWithoutUserInput
 }
 
-export type UserUncheckedCreateWithoutDebtsInput = {
+export type UserUncheckedCreateWithoutDebtsCreatedInput = {
   id?: string
   email: string
   password: string
@@ -527,26 +527,26 @@ export type UserUncheckedCreateWithoutDebtsInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  userDebts?: Prisma.DebtParticipantUncheckedCreateNestedManyWithoutUserInput
+  debtParticipants?: Prisma.DebtParticipantUncheckedCreateNestedManyWithoutUserInput
 }
 
-export type UserCreateOrConnectWithoutDebtsInput = {
+export type UserCreateOrConnectWithoutDebtsCreatedInput = {
   where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutDebtsInput, Prisma.UserUncheckedCreateWithoutDebtsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDebtsCreatedInput, Prisma.UserUncheckedCreateWithoutDebtsCreatedInput>
 }
 
-export type UserUpsertWithoutDebtsInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutDebtsInput, Prisma.UserUncheckedUpdateWithoutDebtsInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutDebtsInput, Prisma.UserUncheckedCreateWithoutDebtsInput>
+export type UserUpsertWithoutDebtsCreatedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutDebtsCreatedInput, Prisma.UserUncheckedUpdateWithoutDebtsCreatedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDebtsCreatedInput, Prisma.UserUncheckedCreateWithoutDebtsCreatedInput>
   where?: Prisma.UserWhereInput
 }
 
-export type UserUpdateToOneWithWhereWithoutDebtsInput = {
+export type UserUpdateToOneWithWhereWithoutDebtsCreatedInput = {
   where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutDebtsInput, Prisma.UserUncheckedUpdateWithoutDebtsInput>
+  data: Prisma.XOR<Prisma.UserUpdateWithoutDebtsCreatedInput, Prisma.UserUncheckedUpdateWithoutDebtsCreatedInput>
 }
 
-export type UserUpdateWithoutDebtsInput = {
+export type UserUpdateWithoutDebtsCreatedInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
@@ -558,10 +558,10 @@ export type UserUpdateWithoutDebtsInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  userDebts?: Prisma.DebtParticipantUpdateManyWithoutUserNestedInput
+  debtParticipants?: Prisma.DebtParticipantUpdateManyWithoutUserNestedInput
 }
 
-export type UserUncheckedUpdateWithoutDebtsInput = {
+export type UserUncheckedUpdateWithoutDebtsCreatedInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
@@ -573,10 +573,10 @@ export type UserUncheckedUpdateWithoutDebtsInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  userDebts?: Prisma.DebtParticipantUncheckedUpdateManyWithoutUserNestedInput
+  debtParticipants?: Prisma.DebtParticipantUncheckedUpdateManyWithoutUserNestedInput
 }
 
-export type UserCreateWithoutUserDebtsInput = {
+export type UserCreateWithoutDebtParticipantsInput = {
   id?: string
   email: string
   password: string
@@ -588,10 +588,10 @@ export type UserCreateWithoutUserDebtsInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  debts?: Prisma.DebtCreateNestedManyWithoutCreatedByInput
+  debtsCreated?: Prisma.DebtCreateNestedManyWithoutCreatedByInput
 }
 
-export type UserUncheckedCreateWithoutUserDebtsInput = {
+export type UserUncheckedCreateWithoutDebtParticipantsInput = {
   id?: string
   email: string
   password: string
@@ -603,26 +603,26 @@ export type UserUncheckedCreateWithoutUserDebtsInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  debts?: Prisma.DebtUncheckedCreateNestedManyWithoutCreatedByInput
+  debtsCreated?: Prisma.DebtUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
-export type UserCreateOrConnectWithoutUserDebtsInput = {
+export type UserCreateOrConnectWithoutDebtParticipantsInput = {
   where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutUserDebtsInput, Prisma.UserUncheckedCreateWithoutUserDebtsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDebtParticipantsInput, Prisma.UserUncheckedCreateWithoutDebtParticipantsInput>
 }
 
-export type UserUpsertWithoutUserDebtsInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutUserDebtsInput, Prisma.UserUncheckedUpdateWithoutUserDebtsInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutUserDebtsInput, Prisma.UserUncheckedCreateWithoutUserDebtsInput>
+export type UserUpsertWithoutDebtParticipantsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutDebtParticipantsInput, Prisma.UserUncheckedUpdateWithoutDebtParticipantsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDebtParticipantsInput, Prisma.UserUncheckedCreateWithoutDebtParticipantsInput>
   where?: Prisma.UserWhereInput
 }
 
-export type UserUpdateToOneWithWhereWithoutUserDebtsInput = {
+export type UserUpdateToOneWithWhereWithoutDebtParticipantsInput = {
   where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutUserDebtsInput, Prisma.UserUncheckedUpdateWithoutUserDebtsInput>
+  data: Prisma.XOR<Prisma.UserUpdateWithoutDebtParticipantsInput, Prisma.UserUncheckedUpdateWithoutDebtParticipantsInput>
 }
 
-export type UserUpdateWithoutUserDebtsInput = {
+export type UserUpdateWithoutDebtParticipantsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
@@ -634,10 +634,10 @@ export type UserUpdateWithoutUserDebtsInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  debts?: Prisma.DebtUpdateManyWithoutCreatedByNestedInput
+  debtsCreated?: Prisma.DebtUpdateManyWithoutCreatedByNestedInput
 }
 
-export type UserUncheckedUpdateWithoutUserDebtsInput = {
+export type UserUncheckedUpdateWithoutDebtParticipantsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
@@ -649,7 +649,7 @@ export type UserUncheckedUpdateWithoutUserDebtsInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  debts?: Prisma.DebtUncheckedUpdateManyWithoutCreatedByNestedInput
+  debtsCreated?: Prisma.DebtUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 
@@ -658,13 +658,13 @@ export type UserUncheckedUpdateWithoutUserDebtsInput = {
  */
 
 export type UserCountOutputType = {
-  userDebts: number
-  debts: number
+  debtsCreated: number
+  debtParticipants: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  userDebts?: boolean | UserCountOutputTypeCountUserDebtsArgs
-  debts?: boolean | UserCountOutputTypeCountDebtsArgs
+  debtsCreated?: boolean | UserCountOutputTypeCountDebtsCreatedArgs
+  debtParticipants?: boolean | UserCountOutputTypeCountDebtParticipantsArgs
 }
 
 /**
@@ -680,15 +680,15 @@ export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountUserDebtsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.DebtParticipantWhereInput
+export type UserCountOutputTypeCountDebtsCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DebtWhereInput
 }
 
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountDebtsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.DebtWhereInput
+export type UserCountOutputTypeCountDebtParticipantsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DebtParticipantWhereInput
 }
 
 
@@ -704,8 +704,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  userDebts?: boolean | Prisma.User$userDebtsArgs<ExtArgs>
-  debts?: boolean | Prisma.User$debtsArgs<ExtArgs>
+  debtsCreated?: boolean | Prisma.User$debtsCreatedArgs<ExtArgs>
+  debtParticipants?: boolean | Prisma.User$debtParticipantsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -753,8 +753,8 @@ export type UserSelectScalar = {
 
 export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "password" | "nickname" | "name" | "lastName" | "phone" | "code" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  userDebts?: boolean | Prisma.User$userDebtsArgs<ExtArgs>
-  debts?: boolean | Prisma.User$debtsArgs<ExtArgs>
+  debtsCreated?: boolean | Prisma.User$debtsCreatedArgs<ExtArgs>
+  debtParticipants?: boolean | Prisma.User$debtParticipantsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -763,8 +763,8 @@ export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
   objects: {
-    userDebts: Prisma.$DebtParticipantPayload<ExtArgs>[]
-    debts: Prisma.$DebtPayload<ExtArgs>[]
+    debtsCreated: Prisma.$DebtPayload<ExtArgs>[]
+    debtParticipants: Prisma.$DebtParticipantPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1172,8 +1172,8 @@ readonly fields: UserFieldRefs;
  */
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  userDebts<T extends Prisma.User$userDebtsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$userDebtsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DebtParticipantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  debts<T extends Prisma.User$debtsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$debtsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DebtPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  debtsCreated<T extends Prisma.User$debtsCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$debtsCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DebtPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  debtParticipants<T extends Prisma.User$debtParticipantsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$debtParticipantsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DebtParticipantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1602,33 +1602,9 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
- * User.userDebts
+ * User.debtsCreated
  */
-export type User$userDebtsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the DebtParticipant
-   */
-  select?: Prisma.DebtParticipantSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the DebtParticipant
-   */
-  omit?: Prisma.DebtParticipantOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.DebtParticipantInclude<ExtArgs> | null
-  where?: Prisma.DebtParticipantWhereInput
-  orderBy?: Prisma.DebtParticipantOrderByWithRelationInput | Prisma.DebtParticipantOrderByWithRelationInput[]
-  cursor?: Prisma.DebtParticipantWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.DebtParticipantScalarFieldEnum | Prisma.DebtParticipantScalarFieldEnum[]
-}
-
-/**
- * User.debts
- */
-export type User$debtsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$debtsCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the Debt
    */
@@ -1647,6 +1623,30 @@ export type User$debtsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
   take?: number
   skip?: number
   distinct?: Prisma.DebtScalarFieldEnum | Prisma.DebtScalarFieldEnum[]
+}
+
+/**
+ * User.debtParticipants
+ */
+export type User$debtParticipantsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DebtParticipant
+   */
+  select?: Prisma.DebtParticipantSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DebtParticipant
+   */
+  omit?: Prisma.DebtParticipantOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DebtParticipantInclude<ExtArgs> | null
+  where?: Prisma.DebtParticipantWhereInput
+  orderBy?: Prisma.DebtParticipantOrderByWithRelationInput | Prisma.DebtParticipantOrderByWithRelationInput[]
+  cursor?: Prisma.DebtParticipantWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DebtParticipantScalarFieldEnum | Prisma.DebtParticipantScalarFieldEnum[]
 }
 
 /**

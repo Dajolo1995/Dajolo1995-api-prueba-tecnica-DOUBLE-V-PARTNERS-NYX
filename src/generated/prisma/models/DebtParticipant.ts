@@ -311,7 +311,7 @@ export type DebtParticipantCreateInput = {
   paidAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  user: Prisma.UserCreateNestedOneWithoutUserDebtsInput
+  user: Prisma.UserCreateNestedOneWithoutDebtParticipantsInput
   debt: Prisma.DebtCreateNestedOneWithoutParticipantsInput
 }
 
@@ -333,7 +333,7 @@ export type DebtParticipantUpdateInput = {
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneRequiredWithoutUserDebtsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutDebtParticipantsNestedInput
   debt?: Prisma.DebtUpdateOneRequiredWithoutParticipantsNestedInput
 }
 
@@ -519,10 +519,6 @@ export type DebtParticipantUncheckedUpdateManyWithoutDebtNestedInput = {
   deleteMany?: Prisma.DebtParticipantScalarWhereInput | Prisma.DebtParticipantScalarWhereInput[]
 }
 
-export type EnumDebtStatusFieldUpdateOperationsInput = {
-  set?: $Enums.DebtStatus
-}
-
 export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
 }
@@ -594,7 +590,7 @@ export type DebtParticipantCreateWithoutDebtInput = {
   paidAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  user: Prisma.UserCreateNestedOneWithoutUserDebtsInput
+  user: Prisma.UserCreateNestedOneWithoutDebtParticipantsInput
 }
 
 export type DebtParticipantUncheckedCreateWithoutDebtInput = {
@@ -690,7 +686,7 @@ export type DebtParticipantUpdateWithoutDebtInput = {
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneRequiredWithoutUserDebtsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutDebtParticipantsNestedInput
 }
 
 export type DebtParticipantUncheckedUpdateWithoutDebtInput = {

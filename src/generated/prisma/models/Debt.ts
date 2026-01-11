@@ -39,6 +39,7 @@ export type DebtMinAggregateOutputType = {
   description: string | null
   totalAmount: runtime.Decimal | null
   createdById: string | null
+  status: $Enums.DebtStatus | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -48,6 +49,7 @@ export type DebtMaxAggregateOutputType = {
   description: string | null
   totalAmount: runtime.Decimal | null
   createdById: string | null
+  status: $Enums.DebtStatus | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -57,6 +59,7 @@ export type DebtCountAggregateOutputType = {
   description: number
   totalAmount: number
   createdById: number
+  status: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -76,6 +79,7 @@ export type DebtMinAggregateInputType = {
   description?: true
   totalAmount?: true
   createdById?: true
+  status?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -85,6 +89,7 @@ export type DebtMaxAggregateInputType = {
   description?: true
   totalAmount?: true
   createdById?: true
+  status?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -94,6 +99,7 @@ export type DebtCountAggregateInputType = {
   description?: true
   totalAmount?: true
   createdById?: true
+  status?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -190,6 +196,7 @@ export type DebtGroupByOutputType = {
   description: string
   totalAmount: runtime.Decimal
   createdById: string
+  status: $Enums.DebtStatus
   createdAt: Date
   updatedAt: Date
   _count: DebtCountAggregateOutputType | null
@@ -222,6 +229,7 @@ export type DebtWhereInput = {
   description?: Prisma.StringFilter<"Debt"> | string
   totalAmount?: Prisma.DecimalFilter<"Debt"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdById?: Prisma.StringFilter<"Debt"> | string
+  status?: Prisma.EnumDebtStatusFilter<"Debt"> | $Enums.DebtStatus
   createdAt?: Prisma.DateTimeFilter<"Debt"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Debt"> | Date | string
   createdBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -233,6 +241,7 @@ export type DebtOrderByWithRelationInput = {
   description?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   createdBy?: Prisma.UserOrderByWithRelationInput
@@ -247,6 +256,7 @@ export type DebtWhereUniqueInput = Prisma.AtLeast<{
   description?: Prisma.StringFilter<"Debt"> | string
   totalAmount?: Prisma.DecimalFilter<"Debt"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdById?: Prisma.StringFilter<"Debt"> | string
+  status?: Prisma.EnumDebtStatusFilter<"Debt"> | $Enums.DebtStatus
   createdAt?: Prisma.DateTimeFilter<"Debt"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Debt"> | Date | string
   createdBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -258,6 +268,7 @@ export type DebtOrderByWithAggregationInput = {
   description?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.DebtCountOrderByAggregateInput
@@ -275,6 +286,7 @@ export type DebtScalarWhereWithAggregatesInput = {
   description?: Prisma.StringWithAggregatesFilter<"Debt"> | string
   totalAmount?: Prisma.DecimalWithAggregatesFilter<"Debt"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdById?: Prisma.StringWithAggregatesFilter<"Debt"> | string
+  status?: Prisma.EnumDebtStatusWithAggregatesFilter<"Debt"> | $Enums.DebtStatus
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Debt"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Debt"> | Date | string
 }
@@ -283,9 +295,10 @@ export type DebtCreateInput = {
   id?: string
   description: string
   totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.DebtStatus
   createdAt?: Date | string
   updatedAt?: Date | string
-  createdBy: Prisma.UserCreateNestedOneWithoutDebtsInput
+  createdBy: Prisma.UserCreateNestedOneWithoutDebtsCreatedInput
   participants?: Prisma.DebtParticipantCreateNestedManyWithoutDebtInput
 }
 
@@ -294,6 +307,7 @@ export type DebtUncheckedCreateInput = {
   description: string
   totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdById: string
+  status?: $Enums.DebtStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   participants?: Prisma.DebtParticipantUncheckedCreateNestedManyWithoutDebtInput
@@ -303,9 +317,10 @@ export type DebtUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.EnumDebtStatusFieldUpdateOperationsInput | $Enums.DebtStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  createdBy?: Prisma.UserUpdateOneRequiredWithoutDebtsNestedInput
+  createdBy?: Prisma.UserUpdateOneRequiredWithoutDebtsCreatedNestedInput
   participants?: Prisma.DebtParticipantUpdateManyWithoutDebtNestedInput
 }
 
@@ -314,6 +329,7 @@ export type DebtUncheckedUpdateInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumDebtStatusFieldUpdateOperationsInput | $Enums.DebtStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   participants?: Prisma.DebtParticipantUncheckedUpdateManyWithoutDebtNestedInput
@@ -324,6 +340,7 @@ export type DebtCreateManyInput = {
   description: string
   totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdById: string
+  status?: $Enums.DebtStatus
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -332,6 +349,7 @@ export type DebtUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.EnumDebtStatusFieldUpdateOperationsInput | $Enums.DebtStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -341,6 +359,7 @@ export type DebtUncheckedUpdateManyInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumDebtStatusFieldUpdateOperationsInput | $Enums.DebtStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -360,6 +379,7 @@ export type DebtCountOrderByAggregateInput = {
   description?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -373,6 +393,7 @@ export type DebtMaxOrderByAggregateInput = {
   description?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -382,6 +403,7 @@ export type DebtMinOrderByAggregateInput = {
   description?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -445,6 +467,10 @@ export type DecimalFieldUpdateOperationsInput = {
   divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
+export type EnumDebtStatusFieldUpdateOperationsInput = {
+  set?: $Enums.DebtStatus
+}
+
 export type DebtCreateNestedOneWithoutParticipantsInput = {
   create?: Prisma.XOR<Prisma.DebtCreateWithoutParticipantsInput, Prisma.DebtUncheckedCreateWithoutParticipantsInput>
   connectOrCreate?: Prisma.DebtCreateOrConnectWithoutParticipantsInput
@@ -463,6 +489,7 @@ export type DebtCreateWithoutCreatedByInput = {
   id?: string
   description: string
   totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.DebtStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   participants?: Prisma.DebtParticipantCreateNestedManyWithoutDebtInput
@@ -472,6 +499,7 @@ export type DebtUncheckedCreateWithoutCreatedByInput = {
   id?: string
   description: string
   totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.DebtStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   participants?: Prisma.DebtParticipantUncheckedCreateNestedManyWithoutDebtInput
@@ -511,6 +539,7 @@ export type DebtScalarWhereInput = {
   description?: Prisma.StringFilter<"Debt"> | string
   totalAmount?: Prisma.DecimalFilter<"Debt"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdById?: Prisma.StringFilter<"Debt"> | string
+  status?: Prisma.EnumDebtStatusFilter<"Debt"> | $Enums.DebtStatus
   createdAt?: Prisma.DateTimeFilter<"Debt"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Debt"> | Date | string
 }
@@ -519,9 +548,10 @@ export type DebtCreateWithoutParticipantsInput = {
   id?: string
   description: string
   totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.DebtStatus
   createdAt?: Date | string
   updatedAt?: Date | string
-  createdBy: Prisma.UserCreateNestedOneWithoutDebtsInput
+  createdBy: Prisma.UserCreateNestedOneWithoutDebtsCreatedInput
 }
 
 export type DebtUncheckedCreateWithoutParticipantsInput = {
@@ -529,6 +559,7 @@ export type DebtUncheckedCreateWithoutParticipantsInput = {
   description: string
   totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdById: string
+  status?: $Enums.DebtStatus
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -553,9 +584,10 @@ export type DebtUpdateWithoutParticipantsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.EnumDebtStatusFieldUpdateOperationsInput | $Enums.DebtStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  createdBy?: Prisma.UserUpdateOneRequiredWithoutDebtsNestedInput
+  createdBy?: Prisma.UserUpdateOneRequiredWithoutDebtsCreatedNestedInput
 }
 
 export type DebtUncheckedUpdateWithoutParticipantsInput = {
@@ -563,6 +595,7 @@ export type DebtUncheckedUpdateWithoutParticipantsInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumDebtStatusFieldUpdateOperationsInput | $Enums.DebtStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -571,6 +604,7 @@ export type DebtCreateManyCreatedByInput = {
   id?: string
   description: string
   totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.DebtStatus
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -579,6 +613,7 @@ export type DebtUpdateWithoutCreatedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.EnumDebtStatusFieldUpdateOperationsInput | $Enums.DebtStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   participants?: Prisma.DebtParticipantUpdateManyWithoutDebtNestedInput
@@ -588,6 +623,7 @@ export type DebtUncheckedUpdateWithoutCreatedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.EnumDebtStatusFieldUpdateOperationsInput | $Enums.DebtStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   participants?: Prisma.DebtParticipantUncheckedUpdateManyWithoutDebtNestedInput
@@ -597,6 +633,7 @@ export type DebtUncheckedUpdateManyWithoutCreatedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.EnumDebtStatusFieldUpdateOperationsInput | $Enums.DebtStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -637,6 +674,7 @@ export type DebtSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   description?: boolean
   totalAmount?: boolean
   createdById?: boolean
+  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -649,6 +687,7 @@ export type DebtSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   description?: boolean
   totalAmount?: boolean
   createdById?: boolean
+  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -659,6 +698,7 @@ export type DebtSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   description?: boolean
   totalAmount?: boolean
   createdById?: boolean
+  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -669,11 +709,12 @@ export type DebtSelectScalar = {
   description?: boolean
   totalAmount?: boolean
   createdById?: boolean
+  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type DebtOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "description" | "totalAmount" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["debt"]>
+export type DebtOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "description" | "totalAmount" | "createdById" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["debt"]>
 export type DebtInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   participants?: boolean | Prisma.Debt$participantsArgs<ExtArgs>
@@ -697,6 +738,7 @@ export type $DebtPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     description: string
     totalAmount: runtime.Decimal
     createdById: string
+    status: $Enums.DebtStatus
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["debt"]>
@@ -1128,6 +1170,7 @@ export interface DebtFieldRefs {
   readonly description: Prisma.FieldRef<"Debt", 'String'>
   readonly totalAmount: Prisma.FieldRef<"Debt", 'Decimal'>
   readonly createdById: Prisma.FieldRef<"Debt", 'String'>
+  readonly status: Prisma.FieldRef<"Debt", 'DebtStatus'>
   readonly createdAt: Prisma.FieldRef<"Debt", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Debt", 'DateTime'>
 }

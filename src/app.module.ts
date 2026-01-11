@@ -15,6 +15,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 import { AppResolver } from './graphql/app.resolver';
+import { DebtModule } from './debt/debt.module';
 
 const nodeEnv =
   (process.env.NODE_ENV as keyof typeof enviroments) ?? 'development';
@@ -30,8 +31,8 @@ const nodeEnv =
       }),
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
-      driver: ApolloDriver,
-      autoSchemaFile: 'src/schema.gql',
+      driver: ApolloDriver, // 🔴 ESTO ES LO QUE FALTABA
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       sortSchema: true,
       playground: false,
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
@@ -41,6 +42,7 @@ const nodeEnv =
     ErrorModule,
     UserModule,
     AuthModule,
+    DebtModule,
   ],
   controllers: [AppController],
   providers: [AppService, AppResolver],

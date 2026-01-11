@@ -21,6 +21,7 @@ model User {
     name      String
     lastName  String
     phone     String
+    code      String?
     isActive  Boolean  @default(true)
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
