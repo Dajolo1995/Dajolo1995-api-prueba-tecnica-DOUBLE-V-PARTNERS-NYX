@@ -1,9 +1,6 @@
 import 'reflect-metadata';
 
-/**
- * 🔥 Mock del DebtService
- * Evita cargar Prisma u otras dependencias reales
- */
+
 jest.mock('./debt.service', () => {
   return {
     DebtService: jest.fn().mockImplementation(() => ({

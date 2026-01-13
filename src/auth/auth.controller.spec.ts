@@ -1,10 +1,6 @@
 import 'reflect-metadata';
 
-/**
- * 🔥 MOCK GLOBAL DEL AUTH SERVICE
- * Esto evita que Jest cargue:
- * Prisma → UserService → AuthService real
- */
+
 jest.mock('./auth.service', () => {
   return {
     AuthService: jest.fn().mockImplementation(() => ({

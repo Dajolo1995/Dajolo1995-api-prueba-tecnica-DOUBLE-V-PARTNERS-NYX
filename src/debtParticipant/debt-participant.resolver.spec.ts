@@ -33,9 +33,6 @@ describe('DebtParticipantResolver', () => {
     jest.clearAllMocks();
   });
 
-  /* =======================
-   * MUTATION: addDebtParticipant
-   * ======================= */
 
   it('addDebtParticipant → should call service with correct params', async () => {
     const debtId = 'debt-id';

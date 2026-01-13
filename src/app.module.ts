@@ -18,19 +18,25 @@ import { AppResolver } from './graphql/app.resolver';
 import { DebtModule } from './debt/debt.module';
 import { DebtParticipantModule } from './debtParticipant/debt-participants.module';
 import { EmailModule } from './emails/email.module';
+import { CacheModule } from '@nestjs/cache-manager';
 
 const nodeEnv =
   (process.env.NODE_ENV as keyof typeof enviroments) ?? 'development';
 
 @Module({
   imports: [
+    CacheModule.register({
+      isGlobal: true,
+      ttl: 60,
+      max: 100,
+    }),
     ConfigModule.forRoot({
       envFilePath: enviroments[nodeEnv] ?? '.env',
       load: [config],
       isGlobal: true,
       validationSchema: Joi.object({
         DATABASE_URL: Joi.string().required(),
-                NODEMAILER_HOST: Joi.string().required(),
+        NODEMAILER_HOST: Joi.string().required(),
         NODEMAILER_PORT: Joi.number().required(),
         NODEMAILER_SECURE: Joi.boolean().required(),
         NODEMAILER_USER: Joi.string().required(),
@@ -38,7 +44,7 @@ const nodeEnv =
       }),
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
-      driver: ApolloDriver, 
+      driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       sortSchema: true,
       playground: false,

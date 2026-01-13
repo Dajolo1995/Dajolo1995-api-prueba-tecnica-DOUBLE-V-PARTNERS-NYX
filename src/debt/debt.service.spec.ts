@@ -176,9 +176,6 @@ describe('DebtService', () => {
     expect(result).toBe(true);
   });
 
-  /* =========================
-   * SUMMARY
-   * ========================= */
 
   it('debtSummaryByUser → OK', async () => {
     (prisma.debt.findMany as jest.Mock).mockResolvedValue([

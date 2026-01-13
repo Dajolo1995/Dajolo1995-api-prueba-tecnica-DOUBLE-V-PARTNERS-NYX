@@ -1,9 +1,6 @@
 import 'reflect-metadata';
 
-/**
- * 🔥 Mock del DebtService
- * Evita Prisma / DB
- */
+
 jest.mock('./debt.service', () => ({
   DebtService: jest.fn().mockImplementation(() => ({
     createDebt: jest.fn(),

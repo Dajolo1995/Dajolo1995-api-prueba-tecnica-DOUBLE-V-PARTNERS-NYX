@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   ConflictException,
+  Inject,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -10,6 +11,8 @@ import { UserService } from 'src/user/user.service';
 import * as bcrypt from 'bcryptjs';
 import { EmailService } from 'src/emails/email.service';
 import { User } from 'src/user/user.entity';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import type { Cache } from 'cache-manager';
 
 @Injectable()
 export class AuthService {
@@ -17,6 +20,7 @@ export class AuthService {
     private errorService: ErrorService,
     private userService: UserService,
     private emailService: EmailService,
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
   async registerUser(data: CreateUserDto) {
@@ -40,6 +44,7 @@ export class AuthService {
   }
 
   async validateUser(id: string, code: string) {
+    const cacheKey = `user:${id}`;
     const user = await this.userService.findById(id);
 
     if (!user) {
@@ -50,7 +55,11 @@ export class AuthService {
       throw new ConflictException('Código de verificación inválido');
     }
 
-   const updateUser = await this.userService.updateUser(id, { isActive: true });
+    const updateUser = await this.userService.updateUser(id, {
+      isActive: true,
+    });
+
+await (this.cacheManager as any).store.del(cacheKey);
 
     return updateUser;
   }

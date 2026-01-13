@@ -37,7 +37,6 @@ export class User {
   @Field()
   updatedAt: Date;
 
-  /* ================= RELATIONS ================= */
 
   @Field(() => [Debt], { nullable: true })
   debtsCreated?: Debt[];
