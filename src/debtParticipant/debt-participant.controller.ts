@@ -2,9 +2,6 @@ import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { DebtParticipantService } from './debtParticipant.service';
 import { AddDebtParticipantDto } from './dto/add-debt-participant.dto';
 
-/**
- * Controller REST de Participantes de Deuda
- */
 @Controller('debts/:debtId/participants')
 export class DebtParticipantController {
   constructor(

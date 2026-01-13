@@ -31,10 +31,8 @@ export class AuthController {
     return this.authService.validateUser(body.id, body.code);
   }
 
-
   @Post('/login')
   async login(@Body() body: { user: string; password: string }) {
     return this.authService.login(body.user, body.password);
   }
-
 }

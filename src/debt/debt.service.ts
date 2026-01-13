@@ -19,16 +19,6 @@ export class DebtService {
     private readonly errorService: ErrorService,
   ) {}
 
-  /* ======================================================
-   * CREATE
-   * ====================================================== */
-
-  /**
-   * Crear una deuda
-   * Reglas:
-   * - El monto debe ser mayor a 0
-   * - El estado inicial siempre es PENDING
-   */
   async createDebt(input: CreateDebtInput) {
     try {
       const { description, totalAmount, createdById } = input;
@@ -58,14 +48,6 @@ export class DebtService {
     }
   }
 
-  /* ======================================================
-   * READ
-   * ====================================================== */
-
-  /**
-   * Listar deudas de un usuario
-   * - Pendientes y pagadas
-   */
   async listDebtsByUser(userId: string) {
     try {
       return await this.prisma.debt.findMany({
@@ -85,9 +67,6 @@ export class DebtService {
     }
   }
 
-  /**
-   * Obtener deuda por ID
-   */
   async getDebtById(debtId: string) {
     const debt = await this.prisma.debt.findUnique({
       where: { id: debtId },
@@ -100,16 +79,6 @@ export class DebtService {
     return debt;
   }
 
-  /* ======================================================
-   * UPDATE
-   * ====================================================== */
-
-  /**
-   * Marcar deuda como pagada
-   * Reglas:
-   * - Una deuda pagada no puede volver a modificarse
-   * - Si la deuda tiene participantes, TODOS se marcan como pagados
-   */
   async markDebtAsPaid(debtId: string) {
     try {
       const debt = await this.getDebtById(debtId);
@@ -118,12 +87,10 @@ export class DebtService {
         throw new BadRequestException('La deuda ya se encuentra pagada');
       }
 
-      // 🔹 Obtener participantes de la deuda
       const participants = await this.prisma.debtParticipant.findMany({
         where: { debtId },
       });
 
-      // 🔥 Si existen participantes, marcarlos todos como PAID
       if (participants.length > 0) {
         await this.prisma.debtParticipant.updateMany({
           where: {
@@ -137,7 +104,6 @@ export class DebtService {
         });
       }
 
-      // ✅ Marcar la deuda como PAID
       return await this.prisma.debt.update({
         where: { id: debtId },
         data: {
@@ -153,12 +119,6 @@ export class DebtService {
     }
   }
 
-  /**
-   * Editar deuda
-   * Reglas:
-   * - No se puede editar si está pagada
-   * - El valor no puede ser negativo
-   */
   async updateDebt(
     debtId: string,
     data: { description?: string; totalAmount?: number },
@@ -189,15 +149,6 @@ export class DebtService {
     }
   }
 
-  /* ======================================================
-   * DELETE
-   * ====================================================== */
-
-  /**
-   * Eliminar deuda
-   * Regla:
-   * - No se puede eliminar si está pagada
-   */
   async deleteDebt(debtId: string) {
     try {
       const debt = await this.getDebtById(debtId);

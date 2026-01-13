@@ -18,13 +18,7 @@ export class DebtParticipantService {
     private readonly errorService: ErrorService,
   ) {}
 
-  /**
-   * Agregar un participante a una deuda
-   * Reglas:
-   * - El monto debe ser mayor a 0
-   * - No se puede agregar si la deuda está PAGADA
-   * - No se puede duplicar usuario + deuda
-   */
+
   async addParticipant(debtId: string, userId: string, amount: number) {
     try {
       if (amount <= 0) {
@@ -33,7 +27,7 @@ export class DebtParticipantService {
         );
       }
 
-      const debt = await this.prisma.debt.findUnique({
+      const debt: any = await this.prisma.debt.findUnique({
         where: { id: debtId },
       });
 
@@ -62,20 +56,18 @@ export class DebtParticipantService {
         );
       }
 
-      // 🔹 Obtener suma actual de participantes
       const participants = await this.prisma.debtParticipant.findMany({
         where: { debtId },
         select: { amount: true },
       });
 
       const totalParticipantsAmount = participants.reduce(
-        (sum, p) => sum + p.amount,
+        (sum:any, p: any) => sum + p.amount,
         0,
       );
 
       const remainingAmount = debt.totalAmount - totalParticipantsAmount;
 
-      // 🔒 Validación clave
       if (amount > remainingAmount) {
         throw new BadRequestException(
           `El monto excede el total de la deuda. Solo faltan $${remainingAmount} por asignar`,
@@ -99,9 +91,7 @@ export class DebtParticipantService {
     }
   }
 
-  /**
-   * Listar participantes de una deuda
-   */
+
   async listParticipants(debtId?: string) {
     try {
       return await this.prisma.debtParticipant.findMany({
@@ -127,11 +117,7 @@ export class DebtParticipantService {
     }
   }
 
-  /**
-   * Marcar como pagado un participante
-   * Regla extra:
-   * - Si TODOS los participantes están PAID, la deuda pasa a PAID
-   */
+
   async markParticipantAsPaid(debtId: string, userId: string) {
     try {
       const participant = await this.prisma.debtParticipant.findUnique({
@@ -155,7 +141,6 @@ export class DebtParticipantService {
         );
       }
 
-      // 🔹 Marcar participante como pagado
       await this.prisma.debtParticipant.update({
         where: {
           userId_debtId: {
@@ -169,7 +154,6 @@ export class DebtParticipantService {
         },
       });
 
-      // 🔥 Verificar si todos los participantes pagaron
       const pendingCount = await this.prisma.debtParticipant.count({
         where: {
           debtId,
@@ -177,7 +161,6 @@ export class DebtParticipantService {
         },
       });
 
-      // ✅ Solo cuando TODOS pagaron, la deuda pasa a PAID
       if (pendingCount === 0) {
         await this.prisma.debt.update({
           where: { id: debtId },

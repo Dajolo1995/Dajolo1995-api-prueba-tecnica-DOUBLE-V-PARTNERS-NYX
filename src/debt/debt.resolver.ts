@@ -2,33 +2,9 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { DebtService } from './debt.service';
 import { CreateDebtInput } from './dto/createDebt.dto';
 
-
-/**
- * Resolver de Deudas
- * Cubre:
- * - Crear deuda
- * - Listar deudas por usuario
- * - Obtener deuda por ID
- * - Marcar deuda como pagada
- * - Editar deuda
- * - Eliminar deuda
- * - Agregaciones (resumen)
- */
 @Resolver()
 export class DebtResolver {
   constructor(private readonly debtService: DebtService) {}
-
-  /* ======================================================
-   * HEALTH (obligatorio para GraphQL)
-   * ====================================================== */
-  @Query(() => String)
-  health() {
-    return 'ok';
-  }
-
-  /* ======================================================
-   * CREATE
-   * ====================================================== */
 
   @Mutation(() => String)
   async createDebt(@Args('input') input: CreateDebtInput) {
@@ -36,34 +12,22 @@ export class DebtResolver {
     return 'DEBT_CREATED';
   }
 
-  /* ======================================================
-   * READ
-   * ====================================================== */
-
   @Query(() => [String])
   async listDebtsByUser(
     @Args('userId', { type: () => String }) userId: string,
   ) {
     const debts = await this.debtService.listDebtsByUser(userId);
-    return "Hola"
+    return 'Hola';
   }
 
   @Query(() => String)
-  async getDebtById(
-    @Args('debtId', { type: () => String }) debtId: string,
-  ) {
+  async getDebtById(@Args('debtId', { type: () => String }) debtId: string) {
     const debt = await this.debtService.getDebtById(debtId);
     return debt.id;
   }
 
-  /* ======================================================
-   * UPDATE
-   * ====================================================== */
-
   @Mutation(() => String)
-  async markDebtAsPaid(
-    @Args('debtId', { type: () => String }) debtId: string,
-  ) {
+  async markDebtAsPaid(@Args('debtId', { type: () => String }) debtId: string) {
     await this.debtService.markDebtAsPaid(debtId);
     return 'DEBT_PAID';
   }
@@ -83,20 +47,10 @@ export class DebtResolver {
     return 'DEBT_UPDATED';
   }
 
-  /* ======================================================
-   * DELETE
-   * ====================================================== */
-
   @Mutation(() => Boolean)
-  async deleteDebt(
-    @Args('debtId', { type: () => String }) debtId: string,
-  ) {
+  async deleteDebt(@Args('debtId', { type: () => String }) debtId: string) {
     return this.debtService.deleteDebt(debtId);
   }
-
-  /* ======================================================
-   * AGGREGATIONS (EXTRA)
-   * ====================================================== */
 
   @Query(() => String)
   async debtSummaryByUser(
