@@ -18,20 +18,25 @@ export class UserService {
 
   async createUser(data: CreateUserDto) {
     try {
-      await this.validateUniqueFields(data.email, data.nickname);
+      const email = data.email.toLowerCase();
+      const nickname = data.nickname.toLowerCase();
+
+      await this.validateUniqueFields(email, nickname);
 
       const passwordHash = await this.validateAndHashPassword(data.password);
 
       const user = await this.prisma.user.create({
         data: {
           ...data,
+          email,
+          nickname,
           password: passwordHash,
           code: generateRandomCode(6),
         },
       });
 
       const { password, ...safeUser } = user;
-      return safeUser;
+      return user;
     } catch (error) {
       this.errorService.handleError(
         'Error al crear usuario',
@@ -67,6 +72,33 @@ export class UserService {
       this.errorService.handleError(
         'Error al actualizar usuario',
         'UserService: updateUser',
+        error,
+      );
+    }
+  }
+
+  async getUser(id?: string) {
+    try {
+      const users = await this.prisma.user.findMany({
+        where: {
+          isActive: true,
+          ...(id && {
+            id: {
+              not: id,
+            },
+          }),
+        },
+        select: {
+          id: true, 
+          nickname: true
+        }
+      });
+
+      return users;
+    } catch (error) {
+      this.errorService.handleError(
+        'Error al obtener usuario',
+        'UserService: getUser',
         error,
       );
     }

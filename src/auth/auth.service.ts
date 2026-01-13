@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  ConflictException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -19,12 +20,10 @@ export class AuthService {
     try {
       const user = await this.userService.createUser(data);
 
-      console.log(user);
-
       return {
         message:
           'Usuario registrado con éxito, por favor revise su correo electronico (puede que se le haya enviado a spam) para que verifique su cuenta ',
-        data,
+        user,
       };
     } catch (error) {
       this.errorService.handleError(
@@ -43,7 +42,7 @@ export class AuthService {
     }
 
     if (user.code !== code) {
-      throw new NotFoundException('Código de verificación inválido');
+      throw new ConflictException('Código de verificación inválido');
     }
 
     await this.userService.updateUser(id, { isActive: true });
@@ -64,10 +63,9 @@ export class AuthService {
       throw new BadRequestException('Contraseña incorrecta');
     }
 
-
     return {
       msg: 'Login exitoso',
-      user: users.id
+      users
     };
   }
 }

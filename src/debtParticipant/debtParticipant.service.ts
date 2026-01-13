@@ -6,7 +6,6 @@ import {
 import { PrismaService } from '../prisma/prisma.service';
 import { ErrorService } from '../error/error.service';
 
-
 export enum DebtStatus {
   PENDING = 'PENDING',
   PAID = 'PAID',
@@ -26,11 +25,7 @@ export class DebtParticipantService {
    * - No se puede agregar si la deuda está PAGADA
    * - No se puede duplicar usuario + deuda
    */
-  async addParticipant(
-    debtId: string,
-    userId: string,
-    amount: number,
-  ) {
+  async addParticipant(debtId: string, userId: string, amount: number) {
     try {
       if (amount <= 0) {
         throw new BadRequestException(
@@ -67,6 +62,26 @@ export class DebtParticipantService {
         );
       }
 
+      // 🔹 Obtener suma actual de participantes
+      const participants = await this.prisma.debtParticipant.findMany({
+        where: { debtId },
+        select: { amount: true },
+      });
+
+      const totalParticipantsAmount = participants.reduce(
+        (sum, p) => sum + p.amount,
+        0,
+      );
+
+      const remainingAmount = debt.totalAmount - totalParticipantsAmount;
+
+      // 🔒 Validación clave
+      if (amount > remainingAmount) {
+        throw new BadRequestException(
+          `El monto excede el total de la deuda. Solo faltan $${remainingAmount} por asignar`,
+        );
+      }
+
       return await this.prisma.debtParticipant.create({
         data: {
           userId,
@@ -87,7 +102,7 @@ export class DebtParticipantService {
   /**
    * Listar participantes de una deuda
    */
-  async listParticipants(debtId: string) {
+  async listParticipants(debtId?: string) {
     try {
       return await this.prisma.debtParticipant.findMany({
         where: { debtId },
@@ -140,6 +155,7 @@ export class DebtParticipantService {
         );
       }
 
+      // 🔹 Marcar participante como pagado
       await this.prisma.debtParticipant.update({
         where: {
           userId_debtId: {
@@ -153,7 +169,7 @@ export class DebtParticipantService {
         },
       });
 
-      // 🔥 Verificar si todos pagaron
+      // 🔥 Verificar si todos los participantes pagaron
       const pendingCount = await this.prisma.debtParticipant.count({
         where: {
           debtId,
@@ -161,6 +177,7 @@ export class DebtParticipantService {
         },
       });
 
+      // ✅ Solo cuando TODOS pagaron, la deuda pasa a PAID
       if (pendingCount === 0) {
         await this.prisma.debt.update({
           where: { id: debtId },
@@ -170,7 +187,10 @@ export class DebtParticipantService {
         });
       }
 
-      return 'Pago registrado correctamente';
+      return {
+        message: 'Pago registrado correctamente',
+        debtPaid: pendingCount === 0,
+      };
     } catch (error) {
       this.errorService.handleError(
         'Error al marcar participante como pagado',

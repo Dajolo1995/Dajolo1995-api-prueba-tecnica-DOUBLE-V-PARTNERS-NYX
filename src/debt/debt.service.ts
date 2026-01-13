@@ -108,6 +108,7 @@ export class DebtService {
    * Marcar deuda como pagada
    * Reglas:
    * - Una deuda pagada no puede volver a modificarse
+   * - Si la deuda tiene participantes, TODOS se marcan como pagados
    */
   async markDebtAsPaid(debtId: string) {
     try {
@@ -117,6 +118,26 @@ export class DebtService {
         throw new BadRequestException('La deuda ya se encuentra pagada');
       }
 
+      // 🔹 Obtener participantes de la deuda
+      const participants = await this.prisma.debtParticipant.findMany({
+        where: { debtId },
+      });
+
+      // 🔥 Si existen participantes, marcarlos todos como PAID
+      if (participants.length > 0) {
+        await this.prisma.debtParticipant.updateMany({
+          where: {
+            debtId,
+            status: DebtStatus.PENDING,
+          },
+          data: {
+            status: DebtStatus.PAID,
+            paidAt: new Date(),
+          },
+        });
+      }
+
+      // ✅ Marcar la deuda como PAID
       return await this.prisma.debt.update({
         where: { id: debtId },
         data: {
@@ -199,15 +220,6 @@ export class DebtService {
     }
   }
 
-  /* ======================================================
-   * AGGREGATIONS (EXTRA PUNTOS)
-   * ====================================================== */
-
-  /**
-   * Resumen de deudas de un usuario
-   * - Total pagado
-   * - Total pendiente
-   */
   async debtSummaryByUser(userId: string) {
     try {
       const debts = await this.prisma.debt.findMany({

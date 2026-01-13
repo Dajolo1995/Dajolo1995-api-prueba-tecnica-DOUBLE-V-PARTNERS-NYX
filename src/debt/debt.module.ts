@@ -3,11 +3,13 @@ import { DebtService } from './debt.service';
 import { DebtResolver } from './debt.resolver';
 import { ErrorModule } from 'src/error/error.module';
 import { PrismaModule } from 'src/prisma/prisma.module';
+import { DebtController } from './debt.controller';
 
 
 @Module({
     imports: [ErrorModule, PrismaModule],
     providers: [DebtService, DebtResolver],
     exports: [DebtService],
+    controllers: [DebtController]
 })
 export class DebtModule {}

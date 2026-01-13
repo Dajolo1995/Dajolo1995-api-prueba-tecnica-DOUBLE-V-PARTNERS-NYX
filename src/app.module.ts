@@ -16,6 +16,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 import { AppResolver } from './graphql/app.resolver';
 import { DebtModule } from './debt/debt.module';
+import { DebtParticipantModule } from './debtParticipant/debt-participants.module';
 
 const nodeEnv =
   (process.env.NODE_ENV as keyof typeof enviroments) ?? 'development';
@@ -43,6 +44,7 @@ const nodeEnv =
     UserModule,
     AuthModule,
     DebtModule,
+    DebtParticipantModule
   ],
   controllers: [AppController],
   providers: [AppService, AppResolver],
