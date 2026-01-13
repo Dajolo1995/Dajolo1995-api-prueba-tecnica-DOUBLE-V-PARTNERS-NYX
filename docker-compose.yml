@@ -21,6 +21,13 @@ services:
     environment:
       # lo dejamos listo para después (Prisma)
       DATABASE_URL: 'postgresql://postgres:postgres@host.docker.internal:5432/postgres?schema=public'
+
+      NODEMAILER_HOST: smtp.gmail.com
+      NODEMAILER_SERVICE: gmail
+      NODEMAILER_PORT: 465
+      NODEMAILER_SECURE: 'true'
+      NODEMAILER_USER: dajolora@gmail.com
+      NODEMAILER_PASSWORD: fuwervlmmtwarhqs
     volumes:
       - .:/app
       - /app/node_modules

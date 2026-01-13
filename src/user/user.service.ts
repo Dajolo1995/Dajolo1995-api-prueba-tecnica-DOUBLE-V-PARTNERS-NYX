@@ -1,4 +1,8 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateUserDto } from 'src/auth/dto/createUser.dto';
 import { UpdateUserDto } from 'src/auth/dto/updateUser.dto';
@@ -89,9 +93,9 @@ export class UserService {
           }),
         },
         select: {
-          id: true, 
-          nickname: true
-        }
+          id: true,
+          nickname: true,
+        },
       });
 
       return users;
@@ -167,5 +171,18 @@ export class UserService {
     if (data.isActive !== undefined) updateData.isActive = data.isActive;
 
     return updateData;
+  }
+
+  async generateCode(id: string) {
+    const user = await this.findById(id);
+
+    if (!user) {
+      throw new NotFoundException('Usuario no encontrado');
+    }
+
+    const code = generateRandomCode(6);
+    const users = await this.updateUser(id, { code });
+
+    return users;
   }
 }

@@ -17,6 +17,7 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
 import { AppResolver } from './graphql/app.resolver';
 import { DebtModule } from './debt/debt.module';
 import { DebtParticipantModule } from './debtParticipant/debt-participants.module';
+import { EmailModule } from './emails/email.module';
 
 const nodeEnv =
   (process.env.NODE_ENV as keyof typeof enviroments) ?? 'development';
@@ -29,10 +30,15 @@ const nodeEnv =
       isGlobal: true,
       validationSchema: Joi.object({
         DATABASE_URL: Joi.string().required(),
+                NODEMAILER_HOST: Joi.string().required(),
+        NODEMAILER_PORT: Joi.number().required(),
+        NODEMAILER_SECURE: Joi.boolean().required(),
+        NODEMAILER_USER: Joi.string().required(),
+        NODEMAILER_PASSWORD: Joi.string().required(),
       }),
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
-      driver: ApolloDriver, // 🔴 ESTO ES LO QUE FALTABA
+      driver: ApolloDriver, 
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       sortSchema: true,
       playground: false,
@@ -44,7 +50,8 @@ const nodeEnv =
     UserModule,
     AuthModule,
     DebtModule,
-    DebtParticipantModule
+    DebtParticipantModule,
+    EmailModule,
   ],
   controllers: [AppController],
   providers: [AppService, AppResolver],
